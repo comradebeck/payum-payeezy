@@ -1,38 +1,35 @@
 <?php
 namespace Payum\Payeezy\Action;
 
-use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\GatewayAwareTrait;
-use Payum\Core\Request\Cancel;
 
-class CancelAction implements ActionInterface
-{
-    use GatewayAwareTrait;
+class CancelAction extends BaseApiAwareAction {
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param Capture $request
+	 */
+	public function execute($request) {
+		/* @var $request Capture */
+		RequestNotSupportedException::assertSupports($this, $request);
+		$details = ArrayObject::ensureArrayObject($request->getModel());
+		$transaction_id = $details['transaction_id'];
+		$details['method'] = 'credit_card';
+		$details['transaction_type'] = 'void';
+		unset($details['transaction_id']);
 
-    /**
-     * {@inheritDoc}
-     *
-     * @param Cancel $request
-     */
-    public function execute($request)
-    {
-        RequestNotSupportedException::assertSupports($this, $request);
+		$this->api->doRequest($details->toUnsafeArray(), $transaction_id);
+		$model->replace((array) $result);
+	}
 
-        $model = ArrayObject::ensureArrayObject($request->getModel());
-
-        throw new \LogicException('Not implemented');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function supports($request)
-    {
-        return
-            $request instanceof Cancel &&
-            $request->getModel() instanceof \ArrayAccess
-        ;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function supports($request) {
+		return
+		$request instanceof Capture &&
+		$request->getModel() instanceof \ArrayAccess
+		;
+	}
 }

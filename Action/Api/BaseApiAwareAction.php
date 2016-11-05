@@ -3,18 +3,22 @@ namespace Payum\Payeezy\Action\Api;
 
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
-use Payum\Core\ApiAwareTrait;
-use Payum\Core\GatewayAwareInterface;
-use Payum\Core\GatewayAwareTrait;
-use Payum\SkelPayeezyeton\Api;
+use Payum\Core\Exception\UnsupportedApiException;
+use Payum\Payeezy\Api;
 
-abstract class BaseApiAwareAction implements ActionInterface, GatewayAwareInterface, ApiAwareInterface
-{
-    use GatewayAwareTrait;
-    use ApiAwareTrait;
+abstract class BaseApiAwareAction implements ActionInterface, ApiAwareInterface {
+	/**
+	 * @var \Payum\Payeezy\Api
+	 */
+	protected $api;
 
-    public function __construct()
-    {
-        $this->apiClass = Api::class;
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setApi($api) {
+		if (false == $api instanceof Api) {
+			throw new UnsupportedApiException('Not supported.');
+		}
+		$this->api = $api;
+	}
 }

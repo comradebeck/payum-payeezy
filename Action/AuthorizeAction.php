@@ -1,39 +1,32 @@
 <?php
 namespace Payum\Payeezy\Action;
 
-use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
-use Payum\Core\GatewayAwareInterface;
-use Payum\Core\GatewayAwareTrait;
-use Payum\Core\Request\Authorize;
 use Payum\Core\Exception\RequestNotSupportedException;
 
-class AuthorizeAction implements ActionInterface, GatewayAwareInterface
-{
-    use GatewayAwareTrait;
+class AuthorizeAction extends BaseApiAwareAction {
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param Capture $request
+	 */
+	public function execute($request) {
+		/* @var $request Capture */
+		RequestNotSupportedException::assertSupports($this, $request);
+		$details = ArrayObject::ensureArrayObject($request->getModel());
+		$details['transaction_type'] = 'authorize';
+		$details['method'] = 'credit_card';
+		$this->api->doRequest($details->toUnsafeArray());
+		$model->replace((array) $result);
+	}
 
-    /**
-     * {@inheritDoc}
-     *
-     * @param Authorize $request
-     */
-    public function execute($request)
-    {
-        RequestNotSupportedException::assertSupports($this, $request);
-
-        $model = ArrayObject::ensureArrayObject($request->getModel());
-
-        throw new \LogicException('Not implemented');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function supports($request)
-    {
-        return
-            $request instanceof Authorize &&
-            $request->getModel() instanceof \ArrayAccess
-        ;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function supports($request) {
+		return
+		$request instanceof Capture &&
+		$request->getModel() instanceof \ArrayAccess
+		;
+	}
 }

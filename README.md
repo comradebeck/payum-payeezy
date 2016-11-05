@@ -1,62 +1,13 @@
-# Skeleton
+# payum-payeezy
+Payum Payeezy integration.
 
-The Payum extension to rapidly build new extensions.
+# License
+The MIT License (MIT)
 
-1. Create new project
+Copyright (c) 2016 noogen
 
-```bash
-$ composer create-project payum/skeleton
-```
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-2. Replace all occurrences of `payum` with your vendor name. It may be your github name, for now let's say you choose: `acme`.
-3. Replace all occurrences of `skeleton` with a payment gateway name. For example Stripe, Paypal etc. For now let's say you choose: `paypal`.
-4. Register a gateway factory to the payum's builder and create a gateway:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-```php
-<?php
-
-use Payum\Core\PayumBuilder;
-use Payum\Core\GatewayFactoryInterface;
-
-$defaultConfig = [];
-
-$payum = (new PayumBuilder)
-    ->addGatewayFactory('paypal', function(array $config, GatewayFactoryInterface $coreGatewayFactory) {
-        return new \Acme\Paypal\PaypalGatewayFactory($config, $coreGatewayFactory);
-    })
-
-    ->addGateway('paypal', [
-        'factory' => 'paypal',
-        'sandbox' => true,
-    ])
-
-    ->getPayum()
-;
-```
-
-5. While using the gateway implement all method where you get `Not implemented` exception:
-
-```php
-<?php
-
-use Payum\Core\Request\Capture;
-
-$paypal = $payum->getGateway('paypal');
-
-$model = new \ArrayObject([
-  // ...
-]);
-
-$paypal->execute(new Capture($model));
-```
-
-## Resources
-
-* [Documentation](https://github.com/Payum/Payum/blob/master/src/Payum/Core/Resources/docs/index.md)
-* [Questions](http://stackoverflow.com/questions/tagged/payum)
-* [Issue Tracker](https://github.com/Payum/Payum/issues)
-* [Twitter](https://twitter.com/payumphp)
-
-## License
-
-Skeleton is released under the [MIT License](LICENSE).
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
