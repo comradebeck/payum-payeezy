@@ -20,6 +20,7 @@ class CancelAction extends Api\BaseApiAwareAction {
 			$details['method'] = 'credit_card';
 		}
 		$details['transaction_type'] = 'void';
+
 		$transaction_id = null;
 		if (isset($details['transaction_tag'])) {
 			$transaction_id = $details['transaction_id'];
