@@ -66,7 +66,7 @@ class Api {
 		$authorization = base64_encode($hmac);
 
 		return array(
-			'authorization' => $authorization,
+			'Authorization' => $authorization,
 			'nonce' => $nonce,
 			'timestamp' => $timestamp,
 			'apikey' => $this->options['apiKey'],
@@ -88,10 +88,12 @@ class Api {
 		$method = 'POST';
 		$payload = json_encode($fields, JSON_FORCE_OBJECT);
 		$headerArray = $this->hmacAuthorizationToken($payload);
-		$headers = array_merge(array(
-			'Content-Type' => 'application/json',
-			'Accept' => 'application/json',
-		), $headerArray);
+		$headers = array(
+			'Content-Type: application/json',
+		);
+		foreach ($headerArray as $key => $value) {
+			array_push($headers, $key . ':' . $value);
+		}
 		$request = new Request($method, $url, $headers, $payload);
 		$response = $this->client->send($request);
 		if (false == ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300)) {
