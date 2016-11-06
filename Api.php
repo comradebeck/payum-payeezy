@@ -92,16 +92,18 @@ class Api {
 		foreach ($headerArray as $key => $value) {
 			array_push($headers, $key . ':' . $value);
 		}
-		$result = $this->doCurl($url, $headers, $payload);
-		$statusCode = $result['http_code'];
+		$response = $this->doCurl($url, $headers, $payload);
+		$statusCode = $response['http_code'];
 		if (false == ($statusCode >= 200 && $statusCode < 300)) {
 			throw new LogicException("Invalid response: \n\n$result");
 		}
-		$body = $result['response'];
+		$body = $response['response'];
 		$result = json_decode($body);
 		if (null === $result) {
 			throw new LogicException("Response content is not valid json: \n\n{$body}");
 		}
+		var_dump($result);
+		echo $hi;
 
 		return $result;
 	}
