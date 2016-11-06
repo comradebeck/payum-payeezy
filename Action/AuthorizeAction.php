@@ -3,8 +3,10 @@ namespace Payum\Payeezy\Action;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
+use Payum\Core\Request\Authorize;
+use Payum\Payeezy;
 
-class AuthorizeAction extends BaseApiAwareAction {
+class AuthorizeAction extends Api\BaseApiAwareAction {
 	/**
 	 * {@inheritDoc}
 	 *
@@ -28,7 +30,7 @@ class AuthorizeAction extends BaseApiAwareAction {
 	 */
 	public function supports($request) {
 		return
-		$request instanceof Capture &&
+		$request instanceof Authorize &&
 		$request->getModel() instanceof \ArrayAccess
 		;
 	}

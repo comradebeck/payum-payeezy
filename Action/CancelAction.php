@@ -3,8 +3,10 @@ namespace Payum\Payeezy\Action;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
+use Payum\Core\Request\Cancel;
+use Payum\Payeezy;
 
-class CancelAction extends BaseApiAwareAction {
+class CancelAction extends Api\BaseApiAwareAction {
 	/**
 	 * {@inheritDoc}
 	 *
@@ -30,7 +32,7 @@ class CancelAction extends BaseApiAwareAction {
 	 */
 	public function supports($request) {
 		return
-		$request instanceof Capture &&
+		$request instanceof Cancel &&
 		$request->getModel() instanceof \ArrayAccess
 		;
 	}

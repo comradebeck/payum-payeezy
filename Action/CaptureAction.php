@@ -6,7 +6,7 @@ use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Request\Capture;
 use Payum\Payeezy;
 
-class CaptureAction extends BaseApiAwareAction {
+class CaptureAction extends Api\BaseApiAwareAction {
 	/**
 	 * {@inheritDoc}
 	 *

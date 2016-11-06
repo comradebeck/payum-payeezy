@@ -3,8 +3,10 @@ namespace Payum\Payeezy\Action;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
+use Payum\Core\Request\Refund;
+use Payum\Payeezy;
 
-class RefundAction extends BaseApiAwareAction {
+class RefundAction extends Api\BaseApiAwareAction {
 	/**
 	 * {@inheritDoc}
 	 *
@@ -30,7 +32,7 @@ class RefundAction extends BaseApiAwareAction {
 	 */
 	public function supports($request) {
 		return
-		$request instanceof Capture &&
+		$request instanceof Refund &&
 		$request->getModel() instanceof \ArrayAccess
 		;
 	}

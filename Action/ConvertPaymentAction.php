@@ -5,7 +5,7 @@ use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Model\PaymentInterface;
 use Payum\Core\Request\Convert;
 
-class ConvertPaymentAction extends BaseApiAwareAction {
+class ConvertPaymentAction extends Api\BaseApiAwareAction {
 
 	/**
 	 * {@inheritDoc}
