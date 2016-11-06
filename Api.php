@@ -1,6 +1,7 @@
 <?php
 namespace Payum\Payeezy;
 
+use GuzzleHttp\Psr7\Request;
 use Payum\Core\Bridge\Guzzle\HttpClientFactory;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception;
