@@ -1,11 +1,9 @@
 <?php
 namespace Payum\Payeezy;
 
-use GuzzleHttp\Psr7\Request;
 use Payum\Core\Bridge\Guzzle\HttpClientFactory;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception;
-use Payum\Core\Exception\Http\HttpException;
 use Payum\Core\HttpClientInterface;
 
 class Api {
@@ -94,15 +92,44 @@ class Api {
 		foreach ($headerArray as $key => $value) {
 			array_push($headers, $key . ':' . $value);
 		}
-		$request = new Request($method, $url, $headers, $payload);
-		$response = $this->client->send($request);
-		if (false == ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300)) {
-			throw HttpException::factory($request, $response);
+		$result = $this->doCurl($url, $headers, $payload);
+		$statusCode = $result['http_code'];
+		if (false == ($statusCode >= 200 && $statusCode < 300)) {
+			throw new LogicException("Invalid response: \n\n$result");
 		}
-		$result = json_decode($response->getBody()->getContents());
+		$body = $result['response'];
+		$result = json_decode($body);
 		if (null === $result) {
-			throw new LogicException("Response content is not valid json: \n\n{$response->getBody()->getContents()}");
+			throw new LogicException("Response content is not valid json: \n\n{$body}");
 		}
+
+		return $result;
+	}
+
+	public function doCurl($url, $headers, $payload) {
+		$request = curl_init();
+		curl_setopt($request, CURLOPT_URL, $url);
+		curl_setopt($request, CURLOPT_POST, true);
+		curl_setopt($request, CURLOPT_POSTFIELDS, $payload);
+		curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($request, CURLOPT_HEADER, false);
+		//curl_setopt($request, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($request, CURLOPT_HTTPHEADER, $headers);
+		$response = curl_exec($request);
+		$result = array(
+			'response' => $response,
+			'curl_error' => '',
+			'http_code' => '',
+			'last_url' => '');
+
+		$error = curl_error($request);
+		if ($error != "") {
+			$result['curl_error'] = $error;
+			return $result;
+		}
+
+		$result['http_code'] = curl_getinfo($request, CURLINFO_HTTP_CODE);
+		$result['last_url'] = curl_getinfo($request, CURLINFO_EFFECTIVE_URL);
 		return $result;
 	}
 }
