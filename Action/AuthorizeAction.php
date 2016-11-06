@@ -21,8 +21,8 @@ class AuthorizeAction extends Api\BaseApiAwareAction {
 			$details['method'] = 'credit_card';
 		}
 
-		$this->api->doRequest($details->toUnsafeArray());
-		$model->replace((array) $result);
+		$result = $this->api->doRequest($details->toUnsafeArray());
+		$details->replace(get_object_vars($result));
 	}
 
 	/**

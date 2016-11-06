@@ -28,8 +28,8 @@ class CaptureAction extends Api\BaseApiAwareAction {
 			unset($details['transaction_id']);
 		}
 
-		$this->api->doRequest($details->toUnsafeArray(), $transaction_id);
-		$model->replace((array) $result);
+		$result = $this->api->doRequest($details->toUnsafeArray(), $transaction_id);
+		$details->replace(get_object_vars($result));
 	}
 
 	/**
