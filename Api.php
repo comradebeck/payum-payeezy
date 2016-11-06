@@ -102,8 +102,6 @@ class Api {
 		if (null === $result) {
 			throw new LogicException("Response content is not valid json: \n\n{$body}");
 		}
-		var_dump($result);
-		echo $hi;
 
 		return $result;
 	}
