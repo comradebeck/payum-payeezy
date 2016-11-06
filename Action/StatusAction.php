@@ -27,7 +27,7 @@ class StatusAction implements ActionInterface {
 			$ttype = $model['transaction_type'];
 			if ($ttype === 'authorize') {
 				$request->markAuthorized();
-			} else if ($ttype === 'capture') {
+			} else if ($ttype === 'capture' || $ttype === 'purchase') {
 				$request->markCaptured();
 			} else if ($ttype === 'void') {
 				$request->markCanceled();
