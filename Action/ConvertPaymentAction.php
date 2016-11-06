@@ -1,9 +1,7 @@
 <?php
 namespace Payum\Payeezy\Action;
 
-use Payum\Core\Action\ActionInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Model\PaymentInterface;
 use Payum\Core\Request\Convert;
 
@@ -25,14 +23,14 @@ class ConvertPaymentAction extends BaseApiAwareAction {
 		if ($card = $payment->getCreditCard()) {
 			if ($card->getToken()) {
 				$details["token"] = $card->getToken();
-                $details["credit_card"] = [
-                "token_type" => "FDToken",
-                "token_data" => SensitiveValue::ensureSensitive([
-                    'value' => $card->getToken(),
-                    'exp_date' => $card->getExpireAt()->format('YYmm'),
-                    'cardholder_name' => $card->getHolder(),
-                    'type ' => $card->getBrand(),
-                ]]);
+				$details["credit_card"] = [
+					"token_type" => "FDToken",
+					"token_data" => SensitiveValue::ensureSensitive([
+						'value' => $card->getToken(),
+						'exp_date' => $card->getExpireAt()->format('YYmm'),
+						'cardholder_name' => $card->getHolder(),
+						'type ' => $card->getBrand(),
+					])];
 			} else {
 				$details["credit_card"] = SensitiveValue::ensureSensitive([
 					'card_number' => $card->getNumber(),
