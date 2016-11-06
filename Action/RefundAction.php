@@ -15,7 +15,7 @@ class RefundAction extends BaseApiAwareAction {
 		RequestNotSupportedException::assertSupports($this, $request);
 		$details = ArrayObject::ensureArrayObject($request->getModel());
 		$transaction_id = $details['transaction_id'];
-		if (!isset($details['method']])) {
+		if (!isset($details['method'])) {
 			$details['method'] = 'credit_card';
 		}
 		$details['transaction_type'] = 'refund';

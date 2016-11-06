@@ -15,7 +15,7 @@ class AuthorizeAction extends BaseApiAwareAction {
 		RequestNotSupportedException::assertSupports($this, $request);
 		$details = ArrayObject::ensureArrayObject($request->getModel());
 		$details['transaction_type'] = 'authorize';
-		if (!isset($details['method']])) {
+		if (!isset($details['method'])) {
 			$details['method'] = 'credit_card';
 		}
 

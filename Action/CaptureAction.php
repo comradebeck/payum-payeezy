@@ -17,7 +17,7 @@ class CaptureAction extends BaseApiAwareAction {
 		RequestNotSupportedException::assertSupports($this, $request);
 		$details = ArrayObject::ensureArrayObject($request->getModel());
 		$details['transaction_type'] = 'purchase';
-		if (!isset($details['method']])) {
+		if (!isset($details['method'])) {
 			$details['method'] = 'credit_card';
 		}
 		$transaction_id = null;
