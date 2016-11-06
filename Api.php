@@ -59,17 +59,17 @@ class Api {
 	public function hmacAuthorizationToken($payload) {
 		$nonce = strval(hexdec(bin2hex(openssl_random_pseudo_bytes(4, $cstrong))));
 		$timestamp = strval(time() * 1000); //time stamp in milli seconds
-		$data = self::$options['apiKey'] . $nonce . $timestamp . self::$options['merchantToken'] . $payload;
+		$data = $this->options['apiKey'] . $nonce . $timestamp . $this->options['merchantToken'] . $payload;
 		$hashAlgorithm = "sha256";
-		$hmac = hash_hmac($hashAlgorithm, $data, self::$options['apiSecret'], false); // HMAC Hash in hex
+		$hmac = hash_hmac($hashAlgorithm, $data, $this->options['apiSecret'], false); // HMAC Hash in hex
 		$authorization = base64_encode($hmac);
 
 		return array(
 			'authorization' => $authorization,
 			'nonce' => $nonce,
 			'timestamp' => $timestamp,
-			'apikey' => self::$options['apiKey'],
-			'token' => self::$options['merchantToken'],
+			'apikey' => $this->options['apiKey'],
+			'token' => $this->options['merchantToken'],
 		);
 	}
 
