@@ -10,7 +10,7 @@ use Payum\Payeezy\Action\ConvertPaymentAction;
 use Payum\Payeezy\Action\RefundAction;
 use Payum\Payeezy\Action\StatusAction;
 
-class SkeletonGatewayFactory extends GatewayFactory {
+class PayeezyGatewayFactory extends GatewayFactory {
 	/**
 	 * {@inheritDoc}
 	 */
