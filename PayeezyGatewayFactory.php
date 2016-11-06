@@ -7,7 +7,6 @@ use Payum\Payeezy\Action\AuthorizeAction;
 use Payum\Payeezy\Action\CancelAction;
 use Payum\Payeezy\Action\CaptureAction;
 use Payum\Payeezy\Action\ConvertPaymentAction;
-use Payum\Payeezy\Action\NotifyAction;
 use Payum\Payeezy\Action\RefundAction;
 use Payum\Payeezy\Action\StatusAction;
 
@@ -18,12 +17,11 @@ class SkeletonGatewayFactory extends GatewayFactory {
 	protected function populateConfig(ArrayObject $config) {
 		$config->defaults([
 			'payum.factory_name' => 'payeezy',
-			'payum.factory_title' => 'payeezy',
+			'payum.factory_title' => 'Payeezy',
 			'payum.action.capture' => new CaptureAction(),
 			'payum.action.authorize' => new AuthorizeAction(),
 			'payum.action.refund' => new RefundAction(),
 			'payum.action.cancel' => new CancelAction(),
-			'payum.action.notify' => new NotifyAction(),
 			'payum.action.status' => new StatusAction(),
 			'payum.action.convert_payment' => new ConvertPaymentAction(),
 		]);

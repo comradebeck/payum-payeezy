@@ -8,14 +8,17 @@ class AuthorizeAction extends BaseApiAwareAction {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param Capture $request
+	 * @param Authorize $request
 	 */
 	public function execute($request) {
-		/* @var $request Capture */
+		/* @var $request Authorize */
 		RequestNotSupportedException::assertSupports($this, $request);
 		$details = ArrayObject::ensureArrayObject($request->getModel());
 		$details['transaction_type'] = 'authorize';
-		$details['method'] = 'credit_card';
+		if (!isset($details['method']])) {
+			$details['method'] = 'credit_card';
+		}
+
 		$this->api->doRequest($details->toUnsafeArray());
 		$model->replace((array) $result);
 	}

@@ -8,14 +8,16 @@ class CancelAction extends BaseApiAwareAction {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param Capture $request
+	 * @param Cancel $request
 	 */
 	public function execute($request) {
-		/* @var $request Capture */
+		/* @var $request Cancel */
 		RequestNotSupportedException::assertSupports($this, $request);
 		$details = ArrayObject::ensureArrayObject($request->getModel());
 		$transaction_id = $details['transaction_id'];
-		$details['method'] = 'credit_card';
+		if (!isset($details['method']])) {
+			$details['method'] = 'credit_card';
+		}
 		$details['transaction_type'] = 'void';
 		unset($details['transaction_id']);
 
