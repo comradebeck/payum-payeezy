@@ -20,11 +20,10 @@ class CaptureAction extends Api\BaseApiAwareAction {
 		if (!isset($details['method'])) {
 			$details['method'] = 'credit_card';
 		}
-		$transaction_id = null;
 
-		if (isset($details['transaction_id'])) {
+		$transaction_id = null;
+		if (isset($details['transaction_tag'])) {
 			$transaction_id = $details['transaction_id'];
-			$details['transaction_type'] = 'capture';
 			unset($details['transaction_id']);
 		}
 

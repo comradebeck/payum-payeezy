@@ -16,12 +16,15 @@ class CancelAction extends Api\BaseApiAwareAction {
 		/* @var $request Cancel */
 		RequestNotSupportedException::assertSupports($this, $request);
 		$details = ArrayObject::ensureArrayObject($request->getModel());
-		$transaction_id = $details['transaction_id'];
 		if (!isset($details['method'])) {
 			$details['method'] = 'credit_card';
 		}
 		$details['transaction_type'] = 'void';
-		unset($details['transaction_id']);
+		$transaction_id = null;
+		if (isset($details['transaction_tag'])) {
+			$transaction_id = $details['transaction_id'];
+			unset($details['transaction_id']);
+		}
 
 		$result = $this->api->doRequest($details->toUnsafeArray(), $transaction_id);
 		$details->replace(get_object_vars($result));
