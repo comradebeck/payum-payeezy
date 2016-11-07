@@ -33,7 +33,7 @@ class PayeezyGatewayFactory extends GatewayFactory {
 			$config->defaults($config['payum.default_options']);
 
 			$config['payum.api'] = function (ArrayObject $config) {
-				return new Api((array) $config, $config['payum.http_client']);
+				return new Api((array) $config);
 			};
 		}
 	}

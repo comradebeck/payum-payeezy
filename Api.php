@@ -1,17 +1,11 @@
 <?php
 namespace Payum\Payeezy;
 
-use Payum\Core\Bridge\Guzzle\HttpClientFactory;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception;
 use Payum\Core\HttpClientInterface;
 
 class Api {
-	/**
-	 * @var HttpClientInterface
-	 */
-	protected $client;
-
 	/**
 	 * @var array
 	 */
@@ -28,7 +22,7 @@ class Api {
 	 *
 	 * @throws \Payum\Core\Exception\InvalidArgumentException if an option is invalid
 	 */
-	public function __construct(array $options, HttpClientInterface $client) {
+	public function __construct(array $options) {
 		$options = ArrayObject::ensureArrayObject($options);
 		$options->defaults($this->options);
 		$options->validateNotEmpty(array(
@@ -40,7 +34,6 @@ class Api {
 			throw new LogicException('The boolean sandbox option must be set.');
 		}
 		$this->options = $options;
-		$this->client = $client ?: HttpClientFactory::create();
 	}
 
 	/**
@@ -97,6 +90,7 @@ class Api {
 		if (false == ($statusCode >= 200 && $statusCode < 300)) {
 			throw new LogicException("Invalid response: \n\n$result");
 		}
+
 		$body = $response['response'];
 		$result = json_decode($body);
 		if (null === $result) {
