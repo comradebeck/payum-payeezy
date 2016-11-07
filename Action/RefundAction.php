@@ -10,10 +10,10 @@ class RefundAction extends Api\BaseApiAwareAction {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param Capture $request
+	 * @param Refund $request
 	 */
 	public function execute($request) {
-		/* @var $request Capture */
+		/* @var $request Refund */
 		RequestNotSupportedException::assertSupports($this, $request);
 		$details = ArrayObject::ensureArrayObject($request->getModel());
 		if (!isset($details['method'])) {

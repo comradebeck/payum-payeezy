@@ -100,6 +100,13 @@ class Api {
 		return $result;
 	}
 
+	/**
+	 * making curl request
+	 * @param  string $url     the url
+	 * @param  array  $headers array of string headers
+	 * @param  string $payload payload json
+	 * @return array           array of response data
+	 */
 	public function doCurl($url, $headers, $payload) {
 		$request = curl_init();
 		curl_setopt($request, CURLOPT_URL, $url);

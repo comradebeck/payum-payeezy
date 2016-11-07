@@ -1,6 +1,46 @@
 # payum-payeezy
 Payum Payeezy integration.
 
+Setup PayumBuilder:
+```php
+<?php
+
+use Payum\Core\PayumBuilder;
+use Payum\Core\GatewayFactoryInterface;
+
+$payum = (new PayumBuilder)
+    ->addGatewayFactory('payeezy', function((array $config, $coreGatewayFactory) {
+        return new \Payum\Payeezy\PayeezyGatewayFactory($config, $coreGatewayFactory);
+    })
+
+    ->addGateway('payeezy', [
+        "apiKey": "",
+        "apiSecret": "",
+        "merchantToken": "fdoa-xxx",
+        "sandbox": true
+    ])
+
+    ->getPayum()
+;
+```
+
+
+Use Gateway:
+```php
+<?php
+
+use Payum\Core\Request\Capture;
+
+$payeezy = $payum->getGateway('payeezy');
+
+$model = new \ArrayObject([
+  // ...
+]);
+
+$payeezy->execute(new Capture($model));
+```
+
+
 # License
 The MIT License (MIT)
 
