@@ -1,6 +1,9 @@
-# payum-payeezy
-Payum Payeezy integration.
+# Payum Payeezy
+Payum Payeezy component.  For information, API Documentation, or obtaining a sandbox credential, please visit: https://developer.payeezy.com/
 
+This project is a work in progress.  Feel free to create issue, fork, and create pull-request for any bug or enhancements.
+
+# usage
 Setup PayumBuilder:
 ```php
 <?php
@@ -40,6 +43,9 @@ $model = new \ArrayObject([
 $payeezy->execute(new Capture($model));
 ```
 
+# Reference
+[slim-payum] (https://github.com/slimdash/slim-payum)
+[Payeezy] (https://github.com/payeezy/)
 
 # License
 The MIT License (MIT)
