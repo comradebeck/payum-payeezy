@@ -4,7 +4,7 @@ namespace SlimDash\Payeezy\Action;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Request\Refund;
-use SlimDash\Payeezy;
+use SlimDash\Payeezy\Action;
 
 class RefundAction extends Api\BaseApiAwareAction {
 	/**

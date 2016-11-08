@@ -5,7 +5,7 @@ use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Request\GetStatusInterface;
-use SlimDash\Payeezy;
+use SlimDash\Payeezy\Action;
 
 class StatusAction implements ActionInterface {
 	/**

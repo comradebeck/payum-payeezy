@@ -3,12 +3,7 @@ namespace SlimDash\Payeezy;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
-use SlimDash\Payeezy\Action\AuthorizeAction;
-use SlimDash\Payeezy\Action\CancelAction;
-use SlimDash\Payeezy\Action\CaptureAction;
-use SlimDash\Payeezy\Action\ConvertPaymentAction;
-use SlimDash\Payeezy\Action\RefundAction;
-use SlimDash\Payeezy\Action\StatusAction;
+use SlimDash\Payeezy\Action;
 
 class PayeezyGatewayFactory extends GatewayFactory {
 	/**
