@@ -13,7 +13,7 @@ use Payum\Core\GatewayFactoryInterface;
 
 $payum = (new PayumBuilder)
     ->addGatewayFactory('payeezy', function((array $config, $coreGatewayFactory) {
-        return new \Payum\Payeezy\PayeezyGatewayFactory($config, $coreGatewayFactory);
+        return new \SlimDash\Payeezy\PayeezyGatewayFactory($config, $coreGatewayFactory);
     })
 
     ->addGateway('payeezy', [

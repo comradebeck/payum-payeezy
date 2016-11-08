@@ -1,10 +1,10 @@
 <?php
-namespace Payum\Payeezy\Action\Api;
+namespace SlimDash\Payeezy\Action\Api;
 
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Exception\UnsupportedApiException;
-use Payum\Payeezy\Api;
+use SlimDash\Payeezy\Api;
 
 abstract class BaseApiAwareAction implements ActionInterface, ApiAwareInterface {
 	/**

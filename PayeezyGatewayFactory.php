@@ -1,14 +1,14 @@
 <?php
-namespace Payum\Payeezy;
+namespace SlimDash\Payeezy;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
-use Payum\Payeezy\Action\AuthorizeAction;
-use Payum\Payeezy\Action\CancelAction;
-use Payum\Payeezy\Action\CaptureAction;
-use Payum\Payeezy\Action\ConvertPaymentAction;
-use Payum\Payeezy\Action\RefundAction;
-use Payum\Payeezy\Action\StatusAction;
+use SlimDash\Payeezy\Action\AuthorizeAction;
+use SlimDash\Payeezy\Action\CancelAction;
+use SlimDash\Payeezy\Action\CaptureAction;
+use SlimDash\Payeezy\Action\ConvertPaymentAction;
+use SlimDash\Payeezy\Action\RefundAction;
+use SlimDash\Payeezy\Action\StatusAction;
 
 class PayeezyGatewayFactory extends GatewayFactory {
 	/**

@@ -1,5 +1,5 @@
 <?php
-namespace Payum\Payeezy;
+namespace SlimDash\Payeezy;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception;

@@ -1,10 +1,10 @@
 <?php
-namespace Payum\Payeezy\Action;
+namespace SlimDash\Payeezy\Action;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Request\Refund;
-use Payum\Payeezy;
+use SlimDash\Payeezy;
 
 class RefundAction extends Api\BaseApiAwareAction {
 	/**

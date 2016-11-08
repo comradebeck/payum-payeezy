@@ -1,9 +1,10 @@
 <?php
-namespace Payum\Payeezy\Action;
+namespace SlimDash\Payeezy\Action;
 
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Model\PaymentInterface;
 use Payum\Core\Request\Convert;
+use SlimDash\Payeezy;
 
 class ConvertPaymentAction extends Api\BaseApiAwareAction {
 
