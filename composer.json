@@ -30,9 +30,9 @@
         "bin-dir": "bin"
     },
     "autoload": {
-        "psr-0": { "Payum\\Payeezy": "" }
+        "psr-0": { "SlimDash\\Payeezy": "" }
     },
-    "target-dir": "Payum/Payeezy",
+    "target-dir": "slimdash/payum-payeezy",
     "extra": {
         "branch-alias": {
             "dev-master": "1.3-dev"
