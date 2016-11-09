@@ -44,8 +44,8 @@ $payeezy->execute(new Capture($model));
 ```
 
 # Reference
-[slim-payum] (https://github.com/slimdash/slim-payum)
-[Payeezy] (https://github.com/payeezy/)
+* [slim-payum] (https://github.com/slimdash/slim-payum)
+* [Payeezy] (https://github.com/payeezy/)
 
 # License
 The MIT License (MIT)
