@@ -13,12 +13,12 @@ class PayeezyGatewayFactory extends GatewayFactory {
 		$config->defaults([
 			'payum.factory_name' => 'payeezy',
 			'payum.factory_title' => 'Payeezy',
-			'payum.action.capture' => new CaptureAction(),
-			'payum.action.authorize' => new AuthorizeAction(),
-			'payum.action.refund' => new RefundAction(),
-			'payum.action.cancel' => new CancelAction(),
-			'payum.action.status' => new StatusAction(),
-			'payum.action.convert_payment' => new ConvertPaymentAction(),
+			'payum.action.capture' => new \SlimDash\Payeezy\Action\CaptureAction(),
+			'payum.action.authorize' => new \SlimDash\Payeezy\Action\AuthorizeAction(),
+			'payum.action.refund' => new \SlimDash\Payeezy\Action\RefundAction(),
+			'payum.action.cancel' => new \SlimDash\Payeezy\Action\CancelAction(),
+			'payum.action.status' => new \SlimDash\Payeezy\Action\StatusAction(),
+			'payum.action.convert_payment' => new \SlimDash\Payeezy\Action\ConvertPaymentAction(),
 		]);
 
 		if (false == $config['payum.api']) {
