@@ -1,11 +1,18 @@
 <?php
 namespace SlimDash\Payeezy;
 
+use Payum\Core\Bridge\Guzzle\HttpClientFactory;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception;
+use Payum\Core\Exception\Http\HttpException;
 use Payum\Core\HttpClientInterface;
 
 class Api {
+	/**
+	 * @var HttpClientInterface
+	 */
+	protected $client;
+
 	/**
 	 * @var array
 	 */
@@ -22,7 +29,7 @@ class Api {
 	 *
 	 * @throws \Payum\Core\Exception\InvalidArgumentException if an option is invalid
 	 */
-	public function __construct(array $options) {
+	public function __construct(array $options, HttpClientInterface $client) {
 		$options = ArrayObject::ensureArrayObject($options);
 		$options->defaults($this->options);
 		$options->validateNotEmpty(array(
@@ -34,6 +41,7 @@ class Api {
 			throw new LogicException('The boolean sandbox option must be set.');
 		}
 		$this->options = $options;
+		$this->client = $client ?: HttpClientFactory::create();
 	}
 
 	/**
@@ -83,25 +91,8 @@ class Api {
 		}
 		$payload = json_encode($fields, JSON_FORCE_OBJECT);
 		$headers = $this->hmacAuthorizationToken($payload);
-		$headersArray = array();
-		foreach ($headers as $key => $value) {
-			array_push($headersArray, $key . ':' . $value);
-		}
-
-		$client = \Payum\Core\Bridge\Guzzle\HttpClientFactory::create();
 		$request = new \GuzzleHttp\Psr7\Request('POST', $url, $headers, $payload);
-		/*
-			$client = new \GuzzleHttp\Client([
-				'curl' => [
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_HEADER => false,
-					CURLOPT_HTTPHEADER => $headersArray,
-					CURLOPT_POSTFIELDS => $payload,
-				],
-			]);
-		*/
-
-		$response = $client->send($request);
+		$response = $this->$client->send($request);
 
 		if (false == ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300)) {
 			throw HttpException::factory($request, $response);
