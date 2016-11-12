@@ -84,7 +84,7 @@ class Api {
 		$payload = json_encode($fields, JSON_FORCE_OBJECT);
 		$headers = $this->hmacAuthorizationToken($payload);
 
-		$client = HttpClientFactory::create();
+		$client = \Payum\Core\Bridge\Guzzle\HttpClientFactory::create();
 		$request = new \GuzzleHttp\Psr7\Request('POST', $url, $headers, $body);
 		$response = $client->send($request);
 
