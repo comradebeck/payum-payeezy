@@ -92,7 +92,7 @@ class Api {
 		$payload = json_encode($fields, JSON_FORCE_OBJECT);
 		$headers = $this->hmacAuthorizationToken($payload);
 		$request = new \GuzzleHttp\Psr7\Request('POST', $url, $headers, $payload);
-		$response = $this->$client->send($request);
+		$response = $this->client->send($request);
 
 		if (false == ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300)) {
 			throw HttpException::factory($request, $response);
