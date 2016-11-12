@@ -90,7 +90,7 @@ class Api {
 				'body' => $payload,
 			],
 		]);
-		$request = new \GuzzleHttp\Psr7\Request('POST', $url);
+		$request = new \GuzzleHttp\Psr7\Request('POST', $url, $headers, $body);
 		$response = $client->send($request);
 
 		if (false == ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300)) {
