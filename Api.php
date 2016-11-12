@@ -83,9 +83,24 @@ class Api {
 		}
 		$payload = json_encode($fields, JSON_FORCE_OBJECT);
 		$headers = $this->hmacAuthorizationToken($payload);
+		$headersArray = array();
+		foreach ($headers as $key => $value) {
+			array_push($headersArray, $key . ':' . $value);
+		}
 
 		$client = \Payum\Core\Bridge\Guzzle\HttpClientFactory::create();
-		$request = new \GuzzleHttp\Psr7\Request('POST', $url, $headers, $body);
+		$request = new \GuzzleHttp\Psr7\Request('POST', $url, $headers, $payload);
+		/*
+			$client = new \GuzzleHttp\Client([
+				'curl' => [
+					CURLOPT_RETURNTRANSFER => true,
+					CURLOPT_HEADER => false,
+					CURLOPT_HTTPHEADER => $headersArray,
+					CURLOPT_POSTFIELDS => $payload,
+				],
+			]);
+		*/
+
 		$response = $client->send($request);
 
 		if (false == ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300)) {
