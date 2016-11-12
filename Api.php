@@ -62,6 +62,7 @@ class Api {
 			'timestamp' => $timestamp,
 			'apikey' => $this->options['apiKey'],
 			'token' => $this->options['merchantToken'],
+			'Content-Type' => 'application/json',
 		);
 	}
 
@@ -76,61 +77,26 @@ class Api {
 		if (isset($transaction_id)) {
 			$url = $url . '/' . $transaction_id;
 		}
-		$method = 'POST';
 		$payload = json_encode($fields, JSON_FORCE_OBJECT);
-		$headerArray = $this->hmacAuthorizationToken($payload);
-		$headers = array(
-			'Content-Type: application/json',
-		);
-		foreach ($headerArray as $key => $value) {
-			array_push($headers, $key . ':' . $value);
-		}
-		$response = $this->doCurl($url, $headers, $payload);
-		$statusCode = $response['http_code'];
-		if (false == ($statusCode >= 200 && $statusCode < 300)) {
-			throw new LogicException("Invalid response: \n\n$result");
-		}
+		$headers = $this->hmacAuthorizationToken($payload);
 
-		$body = $response['response'];
-		$result = json_decode($body);
+		$client = new GuzzleHttp\Client([
+			'defaults' => [
+				'headers' => $headers,
+				'body' => $payload,
+			],
+		]);
+		$request = new Request('POST', $url);
+		$response = $client->send($request);
+
+		if (false == ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300)) {
+			throw HttpException::factory($request, $response);
+		}
+		$result = json_decode($response->getBody()->getContents());
 		if (null === $result) {
-			throw new LogicException("Response content is not valid json: \n\n{$body}");
+			throw new LogicException("Response content is not valid json: \n\n{$response->getBody()->getContents()}");
 		}
 
-		return $result;
-	}
-
-	/**
-	 * making curl request
-	 * @param  string $url     the url
-	 * @param  array  $headers array of string headers
-	 * @param  string $payload payload json
-	 * @return array           array of response data
-	 */
-	public function doCurl($url, $headers, $payload) {
-		$request = curl_init();
-		curl_setopt($request, CURLOPT_URL, $url);
-		curl_setopt($request, CURLOPT_POST, true);
-		curl_setopt($request, CURLOPT_POSTFIELDS, $payload);
-		curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($request, CURLOPT_HEADER, false);
-		//curl_setopt($request, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($request, CURLOPT_HTTPHEADER, $headers);
-		$response = curl_exec($request);
-		$result = array(
-			'response' => $response,
-			'curl_error' => '',
-			'http_code' => '',
-			'last_url' => '');
-
-		$error = curl_error($request);
-		if ($error != "") {
-			$result['curl_error'] = $error;
-			return $result;
-		}
-
-		$result['http_code'] = curl_getinfo($request, CURLINFO_HTTP_CODE);
-		$result['last_url'] = curl_getinfo($request, CURLINFO_EFFECTIVE_URL);
 		return $result;
 	}
 }

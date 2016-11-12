@@ -8,7 +8,7 @@ use SlimDash\Payeezy\Api;
 
 abstract class BaseApiAwareAction implements ActionInterface, ApiAwareInterface {
 	/**
-	 * @var \Payum\Payeezy\Api
+	 * @var \SlimDash\Payeezy\Api
 	 */
 	protected $api;
 
