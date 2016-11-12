@@ -40,7 +40,11 @@ class Api {
 	 * @return string
 	 */
 	protected function getApiEndpoint() {
-		return $this->options['sandbox'] ? 'https://api-cert.payeezy.com/v1/transactions' : 'https://api.payeezy.com/v1/transactions';
+		return
+		$this->options['sandbox']
+		? 'https://api-cert.payeezy.com/v1/transactions'
+		: 'https://api.payeezy.com/v1/transactions'
+		;
 	}
 
 	/**
@@ -80,13 +84,13 @@ class Api {
 		$payload = json_encode($fields, JSON_FORCE_OBJECT);
 		$headers = $this->hmacAuthorizationToken($payload);
 
-		$client = new GuzzleHttp\Client([
+		$client = new \GuzzleHttp\Client([
 			'defaults' => [
 				'headers' => $headers,
 				'body' => $payload,
 			],
 		]);
-		$request = new Request('POST', $url);
+		$request = new \GuzzleHttp\Psr7\Request('POST', $url);
 		$response = $client->send($request);
 
 		if (false == ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300)) {
